@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" ng-app="blog">
+<head>
+    <meta charset="utf-8">
+    <title>My AngularJS App</title>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+    <div class='container-fluid'>
+        <div class='row-fluid page-header'>
+            <h1><a href="#home">Chris Moultrie's</a><small> js playground</small></h1>
+        </div>
+        <div class='row-fluid'>
+            <div ng-view></div>
+            <ul id='sidebar' class="unstyled span2" ng-controller="SidebarCtrl">
+                <li ng-repeat="method in methods | orderBy:orderProp:reverse">
+                    <a href="{{method.itemLink}}">{{method.itemText}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    -->
+    <script src="lib/angular/angular.js"></script>
+    <!-- <script src="../components/underscore/underscore.js"></script> -->
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
+</body>
+</html>

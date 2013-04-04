@@ -1,0 +1,6 @@
+<ul class="unstyled span10">
+    <li ng-repeat="post in posts | orderBy:orderProp:reverse"
+    ng-bind-html-unsafe="post.postText">
+        {{post.postText}}
+    </li>
+</ul>
