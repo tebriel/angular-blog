@@ -1,0 +1,5 @@
+<ul id="sidebar" class="unstyled span2" ng-controller="SidebarCtrl">
+    <li ng-repeat="method in methods | orderBy:orderProp:reverse">
+        <a href="{{method.itemLink}}">{{method.itemText}}</a>
+    </li>
+</ul>

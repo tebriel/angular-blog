@@ -8,16 +8,10 @@
 </head>
 <body>
     <div class='container-fluid'>
-        <div class='row-fluid page-header'>
-            <h1><a href="#home">Chris Moultrie's</a><small> js playground</small></h1>
-        </div>
+        <header></header>
         <div class='row-fluid'>
             <div ng-view></div>
-            <ul id='sidebar' class="unstyled span2" ng-controller="SidebarCtrl">
-                <li ng-repeat="method in methods | orderBy:orderProp:reverse">
-                    <a href="{{method.itemLink}}">{{method.itemText}}</a>
-                </li>
-            </ul>
+            <sidebar></sidebar>
         </div>
     </div>
 
