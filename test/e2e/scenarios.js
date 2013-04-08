@@ -13,9 +13,16 @@ describe('blog', function() {
         expect(browser().location().url()).toBe("/posts");
     });
 
+    describe('header', function() {
+        it('Should render the header', function() {
+            expect(element('header > div > h1 > a').text())
+                .toEqual("Chris Moultrie's");
+        });
+    });
+
     describe('sidebar', function() {
         it('Should render the contact links', function() {
-            expect(element('#sidebar > li:first').text())
+            expect(element('sidebar > ul > li:first').text())
                 .toMatch(/@tebriel/);
         });
     });
