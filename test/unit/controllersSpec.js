@@ -3,27 +3,44 @@
 /* jasmine specs for controllers go here */
 
 describe('PostListCtrl', function() {
-    var scope, ctrl, $httpBackend;
+    var scope, ctrl, $httpBackend, $controller, $log;
 
-    beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+    beforeEach(inject(function(_$httpBackend_, $rootScope, _$controller_, _$log_) {
         $httpBackend = _$httpBackend_;
-        $httpBackend.expectGET('posts.json').
-            respond([{postName: 'Some_Post'}, {postName: 'Some_Other'}]);
-
+        $controller = _$controller_;
+        $log = _$log_;
         scope = $rootScope.$new();
-        ctrl = $controller(PostListCtrl, {$scope: scope});
     }));
 
     it('Should fetch the posts', function() {
+        $httpBackend.expectGET('posts.json').
+            respond([{postName: 'Some_Post'}, {postName: 'Some_Other'}]);
+
+        ctrl = $controller(PostListCtrl, {$scope: scope});
         $httpBackend.flush();
         expect(scope.posts.length).toEqual(2);
     });
 
+    it('Should log an error if the data is null', function() {
+        $httpBackend.expectGET('posts.json').
+            respond(null);
+
+        ctrl = $controller(PostListCtrl, {$scope: scope});
+        $httpBackend.flush();
+        expect($log.error.logs.length).toEqual(1);
+    });
+
     it('Should set postIndex as the order property', function() {
+        $httpBackend.expectGET('posts.json').
+            respond([{postName: 'Some_Post'}, {postName: 'Some_Other'}]);
+        ctrl = $controller(PostListCtrl, {$scope: scope});
         expect(scope.orderProp).toEqual('postIndex');
     });
 
     it('Should set reverse order to true', function() {
+        $httpBackend.expectGET('posts.json').
+            respond([{postName: 'Some_Post'}, {postName: 'Some_Other'}]);
+        ctrl = $controller(PostListCtrl, {$scope: scope});
         expect(scope.reverse).toBeTruthy();
     });
 });

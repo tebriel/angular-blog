@@ -2,17 +2,19 @@
 
 /* Controllers */
 
-function PostListCtrl($scope, $http) {
+var PostListCtrl = function ($scope, $http, $log) {
     $http.get('posts.json').success(function(data) {
+        if (data == null) {
+            $log.error("Couldn't load posts");
+        }
         $scope.posts = data;
     });
 
     $scope.orderProp = 'postIndex';
     $scope.reverse = true;
 }
-//PostListCtrl.$inject = ['$scope', '$http'];
 
-function PostDetailCtrl($scope, $routeParams, $http) {
+var PostDetailCtrl = function ($scope, $routeParams, $http) {
     $http.get('posts.json').success(function(data) {
         for(var idx = 0; idx < data.length; idx++) {
             if (data[idx].postName == $routeParams.postName) {
@@ -22,13 +24,16 @@ function PostDetailCtrl($scope, $routeParams, $http) {
         }
     });
 }
-//PostDetailCtrl.$inject = ['$scope', '$routeParams', '$http', '_'];
 
-function SidebarCtrl($scope, $http) {
+var SidebarCtrl = function ($scope, $http) {
     $http.get('sidebar.json').success(function(data) {
         $scope.methods = data;
     });
     $scope.orderProp = 'itemIndex';
     $scope.reverse = false;
 }
-//SidebarCtrl.$inject = ['$scope', '$http'];
+
+angular.module('Blog.controllers', [])
+    .controller('PostListCtrl', ['$scope', '$http', '$log', PostListCtrl])
+    .controller('PostDetailCtrl', ['$scope', '$routeParams', '$http', PostDetailCtrl])
+    .controller('SidebarCtrl', ['$scope', '$http', SidebarCtrl])
